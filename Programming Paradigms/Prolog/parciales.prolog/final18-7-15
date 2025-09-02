@@ -1,0 +1,40 @@
+% En una base de conocimientos Prolog encontramos lo siguiente:
+
+enProblemas(Persona) :-
+  trabajaPara(Jefe, Persona),
+  esMafioso(Jefe),
+  encargo(Jefe,Persona,cuidar(Cuidado)),
+  pareja(Jefe, Cuidado).
+
+enProblemas(Persona) :-
+   encargo(_,Persona,buscar(Buscado,_)),
+   personaje(Buscado, boxeador).
+
+enProblemas(butch).
+
+% Explicar qué restricciones mínimas deberían cumplir los predicados usados en enProblemas/1 para que pueda consultarse por quiénes 
+% cumplen el predicado enProblemas/1.(1 punto)
+
+% Se deberia de verificar que la persona que se esta queriendo analizar, trabaje para alguien que sea mafioso, en caso de que no trabaje para nadie
+% podemos tomar que no es una persona definida en los hechos planteados de prolog
+
+% ¿Se está aprovechando el polimorfismo entre los distintos tipos de encargos (cuidar, buscar, etc)? (1 punto)
+
+% Si, se esta aprovechando, segun sea el tipo de encargo, se realiza una u otra accion. En el caso de cuidar, se cuida a quien el mafioso designe
+% en caso de buscar, se busca a quien el mafioso designe y si la persona es butch, esta en problemas 
+
+% Se tiene un predicado para saber si una persona sólo hace encargos de cuidar. 
+% ¿Es posible resolverlo sin listas? En caso afirmativo codificar la nueva solución, si no indicar por qué no es posible. (2 puntos)
+
+cuidador(Personaje):-
+    encargo(_, Personaje, _),
+    findall(Cuidado, encargo(_, Personaje, cuidar(Cuidado)), Cuidados),
+    findall(Encargo, encargo(_, Personaje, Encargo), Encargos),
+    length(Cuidados, Cant),        
+    length(Encargos, Cant).
+
+% La nueva solucion es: 
+
+cuidador(Personaje):-
+    encargo(_,Personaje,_),
+    forall(encargo(_,Personaje,Tarea), Tarea = cuidar(_)).
