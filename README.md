@@ -14,6 +14,6 @@ The languages used were: C++, C, Haskell, Prolog, Flex, Bison.
 <li><h2><a href = "https://github.com/JulianT52/Projects-in-UTN.BA/tree/main/Programming Paradigms">Programming Paradigms⌨️</h2></li>
   <p> This groups of projects have the objetive of solving a problem specified in a work order. Every project shows me the importance of program codes that need to be 
 specific, declarative, without repetition of logic and above all, non-redundant. The objetive of some of these programs is to perform calculations and show results based on certain parameters.</p>
-<li><h2> Compiler Scheme Syntax and Semantics of Language👨🏽‍💻</h2></li>
+<li><h2><a href = "https://github.com/JulianT52/Projects-in-UTN.BA/tree/main/Compiler in C, Flex and Bison"> "Compiler Scheme Syntax and Semantics of Language👨🏽‍💻</h2></li>
 </ul>
 
