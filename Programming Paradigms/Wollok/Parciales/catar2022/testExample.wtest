@@ -1,0 +1,16 @@
+import example.*
+
+describe "Grupo de tests para cocineros" {
+
+  const cocinero = new Cocinero(especialidad = new Pastelero(nivelAzucarDeseado = 100))
+
+  test "El pastelero cata correctamente los postres" {
+    var postreACatar = new Postre(cantidadColores = 3)
+    assert.equals(6, cocinero.catar(postreACatar))   
+  }
+
+  test "El pastelero cata correctamente sin pasarse del maximo"{
+    var postre = new Principal(esBonito = false, cantidadAzucar = 9999)
+    assert.equals(10,cocinero.catar(postre))
+  }
+}
