@@ -1,0 +1,4 @@
+import example.*
+
+describe "group of tests for pepita" {
+}

@@ -1,0 +1,7 @@
+import example.*
+program pepitavoladora{
+    pepita.volar(21)
+    bosque.mostrar()
+    console.println("Hola Muchachos, la energia de pepita es: ") // Sirven para mostrar por pantalla 
+    console.println(pepita.energia())
+}

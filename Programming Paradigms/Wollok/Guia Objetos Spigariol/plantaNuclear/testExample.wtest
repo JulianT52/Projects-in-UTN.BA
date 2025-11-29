@@ -1,0 +1,35 @@
+import example.*
+
+describe "tests para central nuclear" {
+
+  test "homero se distrae cuando tiene pocas donas" {
+    homero.donas(1) 
+    assert.that(homero.estaDistraido())
+  }
+
+  test "lenny se distrae cuando toma mucha cerveza"{
+    lenny.cervezasTomadas(12)
+    assert.that(lenny.estaDistraido())
+  }
+
+  test "la planta nuclear con burns pobre esta en peligro"{
+    mrsBurns.esMillonario(false)
+    central.dueño(mrsBurns)
+    assert.that(central.estaEnPeligro())
+  }
+
+  test "la planta nuclear con pocas barras no esta en peligro"{
+    central.agregarBarras(1)
+    central.dueño(mrsBurns)
+    central.empleado(homero)
+    assert.notThat(central.estaEnPeligro())
+  }
+
+  test "La planta nuclear con muchas barras y un empleado distraído está en peligro"{
+    central.agregarBarras(10001)
+    homero.donas(1)
+    central.empleado(homero)
+    central.dueño(mrsBurns)
+    assert.that(central.estaEnPeligro())
+  }
+}

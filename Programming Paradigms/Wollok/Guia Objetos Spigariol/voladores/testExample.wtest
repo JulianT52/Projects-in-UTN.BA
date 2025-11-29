@@ -1,0 +1,13 @@
+import example.*
+
+describe "group of tests for pepita" {
+
+  test "pepita tiene energia inicial" {
+    assert.equals(100, pepita.energia())
+  }
+
+  test "pepita inicialmente no esta cansada"{
+    assert.notThat(pepita.estaCansada())
+  }
+
+}

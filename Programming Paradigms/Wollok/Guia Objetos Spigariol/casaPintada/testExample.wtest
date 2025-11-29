@@ -1,0 +1,97 @@
+import example.*
+
+describe "group of tests for pepita" {
+
+  test "Cuántas latas de pintura necesitás para pintar 251 m2" {
+    assert.equals(6, lataPintura.cantidadLatasNecesarias(251))
+  }
+
+  test "Cuántas latas de pintura necesitás para pintar 250 m2" {
+    assert.equals(5, lataPintura.cantidadLatasNecesarias(250))
+  }
+
+  test "Cuántas latas de pintura necesitás para pintar 249 m2" {
+    assert.equals(5, lataPintura.cantidadLatasNecesarias(249))
+  }
+
+  test "Cuál es el costo de pintura de una superficie de 10 m2"{
+    assert.equals(200,lataPintura.dineroGastado(10))
+  }
+
+  test "Cuál es el costo de pintura de una superficie de 250 m2"{
+    assert.equals(1000,lataPintura.dineroGastado(250))
+  }
+
+  test "Cuánto me cobra Raúl en total (pintura y mano de obra) por pintar 20 m2"{
+    assert.equals(700, raul.pintarCasa(20,"basica"))
+  }
+
+  test "Cuánto me cobra Carlos en total (pintura y mano de obra) por pintar 20 m2"{
+    assert.equals(500, carlos.pintarCasa(20,"basica"))
+  }
+
+  test "Cuánto me cobra Carlos en total (pintura y mano de obra) por pintar 32 m2"{
+    assert.equals(860, carlos.pintarCasa(32,"basica"))
+  }
+
+  test "Cuánto me cobra Venancio en total (pintura y mano de obra) por pintar 32 m2"{
+    assert.equals(1080, venancio.pintarCasa(32,"basica"))
+  }
+
+  test "Cuál es la superficie de la cocina"{
+    assert.equals(21, cocina.calcularSuperficie())
+  }
+
+  test "Cuál es la superficie de la habitacion"{
+    assert.equals(20, habitacion.calcularSuperficie())
+  }
+
+  test "Cuál es la superficie de la pintar toda la casa"{
+    assert.equals(41, habitacion.calcularSuperficie() + cocina.calcularSuperficie())
+  }
+
+  test "aldo puede contratar a raul" {
+    assert.notThat(aldo.puedeContratar(raul,"basica"))
+  }
+
+  test "aldo puede contratar a raul con 2000 mas" {
+    aldo.ahorros(aldo.ahorros() + 2000)
+    assert.that(aldo.puedeContratar(raul,"basica"))
+  }
+
+   test "aldo no puede contratar a raul con 1000 mas y pintura mas cara" {
+    aldo.ahorros(aldo.ahorros() + 1000)
+    lataPintura.costo((lataPintura.costo() + 200))
+    assert.notThat(aldo.puedeContratar(raul,"basica"))
+  }
+
+   test "aldo puede contratar a Carlos" {
+    assert.that(aldo.puedeContratar(carlos,"basica"))
+  }
+
+  test "aldo no puede contratar a Venancio" {
+    assert.notThat(aldo.puedeContratar(venancio,"basica"))
+  }
+
+  test "aldo puede contratar a venancio con 2000 mas" {
+    aldo.ahorros(aldo.ahorros() + 2000)
+    assert.that(aldo.puedeContratar(venancio,"basica"))
+  }
+
+  test "Cuál es el costo de pintura de una superficie de 10 m2 con granel"{
+    assert.equals(35, lataPintura.dineroGastadoAGranel(10))
+  }
+   
+  test "Cuál es el costo de pintura de una superficie de 250 m2 con granel"{
+    assert.equals(875, lataPintura.dineroGastadoAGranel(250))
+  }
+
+  test " aldo puede contratar a raul con pintura a granel"{
+    assert.that(aldo.puedeContratar(raul,"a granel"))
+  }
+
+   test " aldo puede contratar a venancio con pintura a granel"{
+    assert.notThat(aldo.puedeContratar(venancio,"a granel"))
+  }
+
+}

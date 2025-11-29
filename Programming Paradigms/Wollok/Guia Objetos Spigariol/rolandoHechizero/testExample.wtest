@@ -1,0 +1,47 @@
+import example.*
+describe "group of tests for pepita" {
+
+  test "saber nivel de hechizeria de rolando" {
+    hechizo.tipo("superior")
+    hechizo.nombre("espectro malefico")
+    rolando.hechizoFavorito(hechizo)
+    assert.equals(56, rolando.nivelHechizeria())
+  }
+
+  test "saber nivel de hechizeria de rolando con otro hechizo"{
+    hechizo.tipo("superior")
+    hechizo.nombre("espectro superrecontramalefico muajajaja")
+    rolando.hechizoFavorito(hechizo)
+    assert.equals(125, rolando.nivelHechizeria())
+  }
+
+  test "saber nivel de hechizeria de rolando con hechizo basico"{
+    rolando.hechizoFavorito(hechizo)
+    assert.equals(35, rolando.nivelHechizeria())
+  }
+
+  test "saber nivel de hechizeria de rolando con eclipse" {
+    eclipse.hacerEclipse()
+    hechizo.tipo("superior")
+    hechizo.nombre("espectro malefico")
+    rolando.hechizoFavorito(hechizo)
+    assert.equals(61, rolando.nivelHechizeria())
+  }
+
+  test "saber si un hechizo es poderoso" {
+    hechizo.tipo("superior")
+    hechizo.nombre("espectro malefico")
+    assert.that(hechizo.esPoderoso())
+  }
+
+  test "saber si un hechizo es poderoso cambiando su nombre" {
+    hechizo.tipo("superior")
+    hechizo.nombre("pepe")
+    assert.notThat(hechizo.esPoderoso())
+  }
+  
+  test "saber si un hechizo basico es poderoso" {
+    hechizo.tipo("basico")
+    assert.notThat(hechizo.esPoderoso())
+  }
+}
