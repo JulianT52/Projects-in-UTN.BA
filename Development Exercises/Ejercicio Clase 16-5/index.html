@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Zero</title>
+  <link rel="icon" href="carzero-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> 
+
+</head>
+<body>
+  <header>
+    <img src="carzero-logo.png" alt="logo">
+    <nav>
+        <ul class="navigation-menu">
+            <li>Comprar</li>
+            <li>Vendé tu auto</li>
+            <li>Alquilá</li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li>Nosotros</li>
+        </ul>
+    </nav>
+        <img src="menu-icon.png" alt="menu" class="menu-button">
+  </header>
+
+<main>
+    <div class="car-banner">
+        <div class="landing-page-title">
+            <h1 class="font-family-prata">Your new car <br>
+            and everything you need <br><br> 
+            In one place.</h1>
+        </div>
+    </div>
+    <section class="cars">
+        <h4>AUTOS</h4>
+        <ul class="car-options-nav">
+            <li>
+                <img src="used-car.png" alt="used-cars">
+                Usados
+            </li>
+            <li>
+                <img src="new-car.png" alt="new car">
+                0 Km
+            </li>
+            <li>
+                <img src="car-plan.png" alt="plan de ahorro">
+                Plan de Ahorro
+            </li>
+        </ul>
+    </section>
+
+    <section class="services" id="servicios">
+        <h4>SERVICIOS</h4>
+        <ul>
+            <li id="seguros" class="font-family-barlow">
+                <p>SEGUROS</p>
+            </li>
+            <li id="carroceria" class="font-family-barlow">
+                <p>CARROCERIA</p>
+            </li>
+            <li id="taller" class="font-family-barlow">
+                <p>TALLER <br>Y <br>REPUESTOS</p>
+            </li>
+            <li id="neumaticos" class="font-family-barlow">
+                <p>NEUMATICOS</p>
+            </li>
+
+        </ul>
+    </section>
+
+
+    <div class="flex-row center-flex-row" id="contact-div">
+        
+        <h4 class="font-family-barlow-blue">CONTACTO</h4>
+
+        <form action="your-url" method="post" id="contact-form" class="flex-column">
+            <h5 class="font-family-barlow-blue">Envíenos su consulta</h5>
+            <input type="text" placeholder="Nombre">
+            <input type="email" placeholder="Email" required>
+            <input type="tel" placeholder="Teléfono de contacto">
+            
+            <select name="servicio" id="servicio" required>
+                <option value="" disable selected hidden class="select-placeholder">Elija el servicio de su interés</option>
+                <option value="autos0km">Autos 0km</option>
+                <option value="usados">Usados</option>
+                <option value="planAhorro">Plan de Ahorro</option>
+                <option value="seguros">Seguros</option>
+                <option value="servicioCarroceria">Servicio de Carrocería</option>
+                <option value="tallerRepuestos">Taller y Repuestos</option>
+                <option value="neumaticos">Neumáticos</option>
+            </select>
+            <textarea name="message" id="message" placeholder="Escribanos su consulta" class="font-family-barlow-blue"></textarea>
+            <button type="submit" class="btn">Enviar</button>
+        </form>
+    </div>
+</main>
+<footer>
+    <p>Todos los derechos reservados.</p>
+    <p>CarZero S.R.L.</p>
+</footer>  
+
+</body>
+</html>

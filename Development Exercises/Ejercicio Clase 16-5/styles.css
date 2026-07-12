@@ -1,0 +1,350 @@
+.font-family-prata{
+    font-family: "Prata", serif;
+    font-weight: 400;
+    font-size: 45px;
+    font-style: normal;
+}
+.font-family-barlow{
+    font-family: 'Barlow', sans-serif;
+}
+.font-family-barlow-blue{
+    font-family: 'Barlow', sans-serif;
+    color: rgb(56, 127, 181);
+}
+body, html{
+    display:flex;
+    margin:0px;
+    padding:0px;
+    flex-direction: column;
+    background-color: aliceblue;
+    width: 100vw;
+    overflow-x: hidden;
+    font-family: 'Barlow', sans-serif;
+}
+header{
+    position: fixed;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    width: 98%;
+    border-bottom: 1px solid rgb(56, 127, 181);
+    height: 35px;
+}
+
+header img{
+    width: 100px;
+    height: auto;
+}
+
+nav, nav ul{
+    display:flex;
+    flex-direction: row;
+    list-style: none;
+    color: rgb(56, 127, 181)
+
+}
+
+.navigation-menu{
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-button{
+    display: none;
+}
+
+.navigation-menu li{
+    margin: 5px 10px 5px 10px;
+}
+
+.navigation-menu li:hover, .navigation-menu li a:hover{
+    color: rgba(56, 127, 181, 0.573);
+}
+
+
+
+.car-banner{
+   background-image: url('auto.jpg'); 
+   background-repeat: no-repeat;
+   background-size:cover;
+   background-position: 0px -150px;
+   width: 100vw;
+   height: 80vh; /* Pedirles a los chicos que encuentren por que la pagina se desconfigura cuando achicamos el viewport size. */
+   padding-top: 50px;
+   color: aliceblue;
+   background-color: rgb(233,237,248);
+   
+}
+
+.landing-page-title{
+    position: relative;
+    top: 80px;
+    left: 7%;
+    color:#e3e3e3;
+}
+
+.cars{
+    width: 100vw;
+    padding-bottom: 80px;
+    background-color: rgb(233,237,248);
+}
+
+.cars h4, .services h4{
+    width: 100%;
+    text-align: center;
+    font-family: 'Barlow';
+    font-size: 45px;
+    font-weight: 500;
+    color: rgb(56, 127, 181);
+    margin-top: 0px;
+    padding-top: 60px;
+}
+
+.car-options-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+
+}
+
+.car-options-nav li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(56, 127, 181);
+    justify-content: center;
+    min-width: 25%;
+    padding:15px;
+    color: #e3e3e3;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.car-options-nav li:hover{
+    background-color: rgba(56, 127, 181, 0.573);
+    cursor: pointer;
+}
+
+.car-options-nav li img{
+    margin-right: 10px;
+}
+
+
+
+.services{
+    width: 100vw;
+    /* background-color:rgb(233,237,248); */
+    padding-bottom: 50px;
+    padding-top: 20px;
+}
+
+.services ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* padding: 0px 10px 0px 10px; */
+}
+
+.services ul li{
+    border-radius: 10px;
+    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+}
+.services ul li:hover{
+    cursor: pointer;
+}
+
+#seguros, #carroceria, #taller, #neumaticos{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 300px;
+}
+
+#seguros{
+    background-image: url('seguros.png');
+}
+
+#carroceria{
+    background-image: url('carroceria.png');
+}
+
+#taller{
+    background-image: url('taller.png');
+}
+
+#neumaticos{
+    background-image: url('neumaticos.png');
+}
+
+#financiacion{
+    background-image: url('financiacion.png');
+}
+
+#seguros p, #carroceria p, #taller p, #neumaticos p{
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: aliceblue;
+  margin: 0px;
+  font-size: 30px;
+}
+
+.flex-row{ /* la idea es poder generalizar clases, no tener que hacer una clase para cada elemento */ 
+    display: flex;
+    flex-direction: row;
+}
+
+.center-flex-row{
+    justify-content: center;
+
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+#contact-div{
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+    background-image: url('contact-background.svg');
+    background-size: cover;
+    /* height: 400px; */
+    padding: 80px;
+}
+
+#contact-div h4{
+    font-size: 40px;
+    font-weight: 500;
+}
+#contact-form{
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    background-color: aliceblue;
+    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+
+    
+}
+
+#contact-form input, #contact-form select, #contact-form textarea{
+    margin:15px;
+    border: 0px;
+    font-size: 18px;
+    padding: 3px;
+    border-radius: 5px;
+    color: rgb(56, 127, 181);
+}
+
+#contact-form textarea{
+    resize: none;
+    height: 70px;
+}
+
+input::placeholder, textarea::placeholder{
+    color: rgb(56, 127, 181);
+    opacity: 0.5;
+}
+
+option:first-child{
+    color: rgba(56, 127, 181, 0.5);
+}
+
+#contact-form h5{
+    text-align: center;
+    font-size: 18px;
+}
+
+.btn{
+    background-color: #387fb5;
+    border: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    color:aliceblue;
+    width: 80px;
+}
+
+footer{
+    width: 100%;
+    background-color: rgb(56, 127, 181);
+    color: aliceblue;
+    text-align: right;
+}
+
+footer p{
+    margin-right: 35px;;
+}
+
+@media (max-width: 768px){
+    .car-options-nav{
+        flex-direction: column;
+    }
+
+    .car-options-nav li{
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        padding:15px;
+        color: #e3e3e3;
+        margin-bottom: 20px;
+    }
+
+    .car-banner{
+        background-image: url('car-mobile-background.jpg'); 
+        background-repeat:no-repeat;
+        background-size:cover;
+        width: 100vw;
+        margin-top: 50px;
+        padding-top: 0px;
+        color: aliceblue;  
+     }
+
+     header nav{
+        display:none;
+     }
+
+     .menu-button{
+        display: block;
+        width:35px;
+        padding: 10px;
+     }
+
+     .services ul{
+        flex-direction: column;
+     }
+
+     .services ul li{
+        margin-bottom: 30px;
+     }
+
+     .cars h4{
+        padding-top: 35px;
+     }
+
+     #contact-div{
+        flex-direction: column;
+        padding-top: 0px;
+     }
+
+     #contact-form{
+        width: 70vw;
+     }
+
+}
+a{
+    text-decoration: none;   /* saca el subrayado */
+    color: inherit;          /* hereda el color del texto padre */
+    background: none;        /* por si hay fondos raros */
+    font: inherit; 
+}
