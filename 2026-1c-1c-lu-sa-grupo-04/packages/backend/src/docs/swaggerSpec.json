@@ -1,0 +1,239 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Gestión de Turnos Médicos",
+    "description": "Documentación técnica integral (Entrega 2). Gestión de profesionales, pacientes, servicios y turnos.",
+    "version": "2.0.0"
+  },
+  "tags": [
+    { "name": "Médicos", "description": "Operaciones de profesionales, especialidades y servicios" },
+    { "name": "Pacientes", "description": "Gestión de pacientes, reservas e historial" },
+    { "name": "Turnos", "description": "Consultas de disponibilidad global" },
+    { "name": "Health", "description": "Estado del servidor" }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Healthcheck",
+        "responses": { "200": { "description": "Servidor funcionando correctamente" } }
+      }
+    },
+    "/turnos/disponibles": {
+      "get": {
+        "tags": ["Turnos"],
+        "summary": "Listar todos los turnos disponibles",
+        "description": "Retorna el listado global de turnos con estado 'DISPONIBLE'.",
+        "responses": {
+          "200": { "description": "Lista de turnos libres obtenida" }
+        }
+      }
+    },
+    "/medico/": {
+      "post": {
+        "tags": ["Médicos"],
+        "summary": "Registrar médico",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MedicoInput" } } }
+        },
+        "responses": {
+          "201": { "description": "Médico creado" },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
+        }
+      }
+    },
+    "/medico/create": {
+      "post": {
+        "tags": ["Médicos"],
+        "summary": "Registrar médico (Alias)",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MedicoInput" } } }
+        },
+        "responses": { "201": { "description": "Médico creado" } }
+      }
+    },
+    "/medico/{id}/disponibilidades": {
+      "get": {
+        "tags": ["Médicos"],
+        "summary": "Consultar disponibilidades de un médico",
+        "parameters": [{ "$ref": "#/components/parameters/MedicoIdPath" }],
+        "responses": { "200": { "description": "Días y horarios de atención" } }
+      },
+      "post": {
+        "tags": ["Médicos"],
+        "summary": "Cargar agenda del médico",
+        "parameters": [{ "$ref": "#/components/parameters/MedicoIdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["disponibilidades"],
+                "properties": {
+                  "disponibilidades": { "type": "array", "items": { "$ref": "#/components/schemas/DisponibilidadInput" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Agenda y turnos generados" } }
+      }
+    },
+    "/medico/{id}/servicios": {
+      "post": {
+        "tags": ["Médicos"],
+        "summary": "Asignar una especialidad o práctica",
+        "parameters": [{ "$ref": "#/components/parameters/MedicoIdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ServicioInput" } } }
+        },
+        "responses": { "201": { "description": "Servicio añadido al profesional" } }
+      }
+    },
+    "/medico/{id}/servicios/{idServicio}": {
+      "patch": {
+        "tags": ["Médicos"],
+        "summary": "Actualizar datos de un servicio",
+        "parameters": [
+          { "$ref": "#/components/parameters/MedicoIdPath" },
+          { "$ref": "#/components/parameters/ServicioIdPath" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ServicioInput" } } }
+        },
+        "responses": { "200": { "description": "Servicio actualizado" } }
+      },
+      "delete": {
+        "tags": ["Médicos"],
+        "summary": "Remover servicio del médico",
+        "parameters": [
+          { "$ref": "#/components/parameters/MedicoIdPath" },
+          { "$ref": "#/components/parameters/ServicioIdPath" },
+          {
+            "name": "tipo",
+            "in": "query",
+            "required": true,
+            "description": "Especificar 'especialidad' o 'practica'",
+            "schema": { "type": "string", "enum": ["especialidad", "practica"] }
+          }
+        ],
+        "responses": { "200": { "description": "Servicio eliminado" } }
+      }
+    },
+    "/paciente": {
+      "post": {
+        "tags": ["Pacientes"],
+        "summary": "Registrar paciente",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PacienteInput" } } }
+        },
+        "responses": { "201": { "description": "Paciente registrado" } }
+      }
+    },
+    "/paciente/{id}/turnos": {
+      "get": {
+        "tags": ["Pacientes"],
+        "summary": "Historial de turnos del paciente",
+        "parameters": [{ "$ref": "#/components/parameters/PacienteIdPath" }],
+        "responses": { "200": { "description": "Listado de turnos históricos" } }
+      }
+    },
+    "/paciente/{id}/reservar": {
+      "post": {
+        "tags": ["Pacientes"],
+        "summary": "Reservar un turno disponible",
+        "parameters": [{ "$ref": "#/components/parameters/PacienteIdPath" }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["turnoId"],
+                "properties": { "turnoId": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Turno reservado" },
+          "409": { "description": "Turno no disponible" }
+        }
+      }
+    },
+    "/paciente/{id}/turnos/{turnoId}/cancelar": {
+      "post": {
+        "tags": ["Pacientes"],
+        "summary": "Cancelar reserva de turno",
+        "parameters": [
+          { "$ref": "#/components/parameters/PacienteIdPath" },
+          { "$ref": "#/components/parameters/TurnoIdPath" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["motivo"],
+                "properties": { "motivo": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Turno cancelado correctamente" } }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "MedicoIdPath": { "name": "id", "in": "path", "required": true, "description": "ID del médico", "schema": { "type": "string" } },
+      "PacienteIdPath": { "name": "id", "in": "path", "required": true, "description": "ID del paciente", "schema": { "type": "string" } },
+      "ServicioIdPath": { "name": "idServicio", "in": "path", "required": true, "description": "ID del servicio específico", "schema": { "type": "string" } },
+      "TurnoIdPath": { "name": "turnoId", "in": "path", "required": true, "description": "ID del turno", "schema": { "type": "string" } }
+    },
+    "schemas": {
+      "UsuarioInput": {
+        "type": "object",
+        "required": ["nombreUsuario", "password"],
+        "properties": { "nombreUsuario": { "type": "string" }, "password": { "type": "string" } }
+      },
+      "MedicoInput": {
+        "type": "object",
+        "required": ["nombre", "apellido", "matricula", "usuario"],
+        "properties": { "nombre": { "type": "string" }, "apellido": { "type": "string" }, "matricula": { "type": "string" }, "usuario": { "$ref": "#/components/schemas/UsuarioInput" } }
+      },
+      "PacienteInput": {
+        "type": "object",
+        "required": ["nombre", "apellido", "dni", "usuario"],
+        "properties": { "nombre": { "type": "string" }, "apellido": { "type": "string" }, "dni": { "type": "string" }, "obraSocial": { "type": "string" }, "plan": { "type": "string" }, "usuario": { "$ref": "#/components/schemas/UsuarioInput" } }
+      },
+      "DisponibilidadInput": {
+        "type": "object",
+        "properties": { "diaSemana": { "type": "string" }, "horaDesde": { "type": "string", "example": "09:00" }, "horaHasta": { "type": "string", "example": "13:00" } }
+      },
+      "ServicioInput": {
+        "type": "object",
+        "required": ["tipo", "nombre"],
+        "properties": { "tipo": { "type": "string", "enum": ["especialidad", "practica"] }, "nombre": { "type": "string" }, "costo": { "type": "number" }, "duracionEnMins": { "type": "integer" }, "codigo": { "type": "string" } }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": { "status": { "type": "string" }, "message": { "type": "string" }, "timestamp": { "type": "string", "format": "date-time" } }
+      }
+    },
+    "responses": {
+      "BadRequest": { "description": "Datos inválidos", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "NotFound": { "description": "No encontrado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "Conflict": { "description": "Conflicto", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "UnprocessableEntity": { "description": "Error lógica", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+      "InternalServerError": { "description": "Error server", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+    }
+  }
+}

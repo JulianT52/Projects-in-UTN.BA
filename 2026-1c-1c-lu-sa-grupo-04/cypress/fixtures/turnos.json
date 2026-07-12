@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "_id": "turno-1",
+      "profesional": "Dr. Juan Pérez",
+      "servicio": "Cardiología",
+      "fecha": "2026-08-01T10:00:00.000Z",
+      "sede": "Sede Centro",
+      "nivelCobertura": "total",
+      "montoAAbonar": 0
+    },
+    {
+      "_id": "turno-2",
+      "profesional": "Dra. Ana Gómez",
+      "servicio": "Dermatología",
+      "fecha": "2026-08-02T14:30:00.000Z",
+      "sede": "Sede Norte",
+      "nivelCobertura": "parcial",
+      "montoAAbonar": 3500
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "totalPages": 1
+  }
+}
