@@ -1,0 +1,38 @@
+{
+  "name": "dds-repo-base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "pnpm --filter backend start",
+    "dev:backend": "pnpm --filter backend dev",
+    "start:frontend": "pnpm --filter frontend start",
+    "start:dev": "concurrently \"pnpm dev:backend\" \"pnpm start:frontend\"",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "e2e": "cypress run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "concurrently": "^9.2.0",
+    "cypress": "^15.18.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "jest": "^27.5.1",
+    "prettier": "3.6.2",
+    "supertest": "^7.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.17.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.1",
+    "node-cron": "^4.2.1",
+    "react-router-dom": "^7.16.0",
+    "zod": "^4.4.3"
+  }
+}
