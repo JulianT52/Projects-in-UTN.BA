@@ -1,0 +1,52 @@
+/* src/components/modal/Modal.css */
+
+/* Fondo oscuro que cubre toda la pantalla */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Asegura que esté por encima de todo */
+  backdrop-filter: blur(2px); /* Un efecto estético moderno */
+}
+
+/* La tarjeta blanca central */
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-content p {
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Botón de aceptación (reutilizando tu estilo primary) */
+.modal-content .btn-primary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #c91429; /* Color de tu marca */
+  color: white;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.modal-content .btn-primary:hover {
+  background-color: #a01020;
+}

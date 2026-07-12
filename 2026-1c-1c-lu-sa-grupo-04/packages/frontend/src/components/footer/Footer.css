@@ -1,0 +1,78 @@
+:root {
+  --primary-red: #c91429;
+  --dark-grey: #534f59;
+  --white: #ffffff;
+}
+
+.landing-footer {
+  background-color: var(--dark-grey);
+  color: var(--white);
+  padding: 40px 10%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 4px solid var(--primary-red);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-brand {
+  max-width: 350px;
+}
+
+.footer-brand .logo-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  
+}
+
+.footer-brand .text-red {
+  color: var(--primary-red);
+}
+
+.footer-brand p {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+.footer-info {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+.footer-info p {
+  margin: 4px 0;
+}
+
+.academic-tag {
+  font-style: italic;
+  color: #999;
+}
+
+/* Responsivo para dispositivos móviles (RNF de diseño adaptativo) */
+@media (max-width: 768px) {
+  .landing-footer {
+    padding: 30px 5%;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-info {
+    text-align: center;
+    margin-top: 10px;
+    border-top: 1px solid #6e6a75;
+    padding-top: 15px;
+    width: 100%;
+  }
+}

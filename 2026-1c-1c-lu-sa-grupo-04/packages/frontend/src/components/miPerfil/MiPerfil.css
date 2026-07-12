@@ -1,0 +1,86 @@
+.mi-perfil-container {
+  --mp-red: #c91429;
+  --mp-red-dark: #8f0c1c;
+
+  min-height: calc(100vh - 90px);
+  padding: 32px 10%;
+  background: #f7f7f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mi-perfil-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mp-red);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+
+.mi-perfil-volver:hover {
+  color: var(--mp-red-dark);
+}
+
+.mi-perfil-header {
+  margin-bottom: 28px;
+}
+
+.mi-perfil-header h1 {
+  margin: 0 0 10px;
+  color: #1f2a44;
+  font-size: 2.2rem;
+}
+
+.mi-perfil-header p {
+  margin: 0;
+  color: #4a4a4a;
+  font-size: 1rem;
+  max-width: 720px;
+}
+
+.mi-perfil-card {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+}
+
+.mi-perfil-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 40px;
+}
+
+.mi-perfil-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mi-perfil-campo-etiqueta {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+.mi-perfil-campo-valor {
+  color: #1f2a44;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .mi-perfil-container {
+    padding: 24px 5%;
+  }
+
+  .mi-perfil-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .mi-perfil-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

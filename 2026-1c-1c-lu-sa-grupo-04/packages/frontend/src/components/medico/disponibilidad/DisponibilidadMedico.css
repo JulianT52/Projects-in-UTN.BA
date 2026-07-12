@@ -1,0 +1,248 @@
+.disponibilidad-container {
+  min-height: calc(100vh - 90px);
+  padding: 40px 10%;
+  background: #f7f7f8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.disponibilidad-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, #c91429, #8f0c1c);
+  color: white;
+  padding: 32px;
+  border-radius: 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(201, 20, 41, 0.2);
+}
+
+.disponibilidad-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin: 0 0 8px;
+}
+
+.disponibilidad-hero h1 {
+  font-size: 2.3rem;
+  margin: 0 0 10px;
+}
+
+.disponibilidad-hero p {
+  margin: 0;
+  max-width: 680px;
+  opacity: 0.95;
+}
+
+.disponibilidad-volver {
+  background: white;
+  color: #c91429;
+  text-decoration: none;
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.disponibilidad-volver:hover {
+  background: #f6f6f6;
+}
+
+.disponibilidad-alerta {
+  margin-bottom: 20px;
+}
+
+.disponibilidad-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 22px;
+}
+
+.disponibilidad-card {
+  background: white;
+  border-radius: 16px;
+  padding: 26px;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.disponibilidad-card h2 {
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 1.45rem;
+}
+
+.disponibilidad-card p {
+  color: #666;
+  line-height: 1.45;
+}
+
+.disponibilidad-form {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.disponibilidad-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #333;
+  font-weight: 700;
+}
+
+.disponibilidad-form select {
+  height: 44px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: #333;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.disponibilidad-form select:focus {
+  border-color: #c91429;
+  box-shadow: 0 0 0 3px rgba(201, 20, 41, 0.08);
+}
+
+.disponibilidad-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.btn-disponibilidad-principal {
+  border: none;
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  background: #c91429;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.btn-disponibilidad-principal:hover:not(:disabled) {
+  background: #a00c24;
+}
+
+.btn-disponibilidad-principal:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.disponibilidad-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.disponibilidad-vacia {
+  border: 1px dashed #ddd;
+  border-radius: 14px;
+  padding: 30px;
+  text-align: center;
+  color: #777;
+  background: #fafafa;
+}
+
+.disponibilidad-vacia span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.disponibilidad-vacia p {
+  margin: 0;
+}
+
+.disponibilidad-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.disponibilidad-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.disponibilidad-item strong {
+  color: #333;
+}
+
+.disponibilidad-item p {
+  margin: 4px 0 0;
+  color: #666;
+}
+
+.disponibilidad-item-sede {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.btn-disponibilidad-eliminar {
+  border: none;
+  background: #c91429;
+  color: white;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-disponibilidad-eliminar:hover:not(:disabled) {
+  background: #a00c24;
+}
+
+.btn-disponibilidad-eliminar:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 980px) {
+  .disponibilidad-container {
+    padding: 28px 5%;
+  }
+
+  .disponibilidad-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .disponibilidad-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .disponibilidad-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .disponibilidad-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .disponibilidad-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-disponibilidad-eliminar {
+    width: 100%;
+  }
+}

@@ -1,0 +1,65 @@
+.historial-container { 
+    padding: 40px 20px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.historial-header h1 { 
+    margin: 0; 
+}
+
+.historial-header p { 
+    color: #666; 
+    margin: 4px 0 24px; 
+}
+
+.historial-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 2fr; 
+    gap: 24px; 
+}
+
+.pacientes-lista { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+.pacientes-lista h2, .historial-detalle h2 { 
+    font-size: 1.1rem; 
+}
+
+.paciente-item {
+  text-align: left; 
+  padding: 12px; 
+  border: 1px solid #eee; 
+  border-radius: 8px;
+  background: #fff; 
+  cursor: pointer; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 2px;
+}
+
+.paciente-item.activo { 
+    border-color: #c91429; 
+    background: #fff3f3; 
+}
+
+.historial-detalle { display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+
+.turno-card { 
+    border: 1px solid #eee; 
+    border-radius: 8px; 
+    padding: 16px; 
+    background: #fff; 
+}
+
+@media (max-width: 768px) { 
+    .historial-layout { 
+        grid-template-columns: 1fr; 
+    } 
+}

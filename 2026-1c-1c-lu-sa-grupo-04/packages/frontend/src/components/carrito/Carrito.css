@@ -1,0 +1,211 @@
+/* ===== Componente Carrito ===== */
+.carrito-main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+.btn-volver {
+  background: none;
+  border: none;
+  color: var(--primary-red, #c91429);
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.carrito-titulo {
+  color: #333;
+  border-bottom: 2px solid var(--primary-red, #c91429);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+/* Estado Vacío */
+.carrito-vacio {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.carrito-vacio h2 {
+  color: #555;
+}
+
+.btn-buscar {
+  margin-top: 20px;
+  background: var(--primary-red, #c91429);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Grilla principal */
+.carrito-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Lista de Turnos */
+.carrito-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.turno-card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  min-width: 0;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.turno-profesional {
+  margin: 0 0 5px 0;
+  color: var(--primary-red, #c91429);
+}
+
+.turno-especialidad {
+  margin: 0 0 10px 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.turno-detalle {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.turno-acciones {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.turno-precio {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.turno-cobertura {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.btn-quitar {
+  background: #fff3f3;
+  border: 1px solid #ffcccc;
+  color: var(--primary-red, #c91429);
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Resumen (Columna Derecha) */
+.resumen-box {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  position: sticky;
+  top: 100px;
+  min-width: 0;
+}
+
+.resumen-titulo {
+  margin: 0 0 20px 0;
+  font-size: 1.4rem;
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.bonificado {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.resumen-separador {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.btn-pagar {
+  width: 100%;
+  background: var(--primary-red, #c91429);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(201, 20, 41, 0.3);
+}
+
+.pago-seguro {
+  text-align: center;
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .carrito-main {
+    padding: 24px 16px;
+  }
+
+  .carrito-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resumen-box {
+    position: static;
+  }
+
+  .turno-card {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .turno-acciones {
+    align-items: flex-start;
+    text-align: left;
+  }
+}

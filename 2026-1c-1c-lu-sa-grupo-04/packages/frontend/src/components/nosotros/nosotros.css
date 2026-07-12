@@ -1,0 +1,135 @@
+.nosotros-page {
+  --nos-primary: #da293e;
+  --nos-pink: #fdf2f3;
+  --nos-dark: #1f2937;
+  --nos-gray: #6b7280;
+  --nos-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  min-height: calc(100vh - 80px);
+  background-color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--nos-dark);
+}
+
+.nosotros-container {
+  width: 80%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+.nosotros-tag {
+  display: inline-block;
+  color: var(--nos-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.nosotros-container h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--nos-primary);
+  margin-bottom: 40px;
+  line-height: 1.2;
+}
+
+.nosotros-content {
+  background-color: var(--nos-pink);
+  border-radius: 20px;
+  padding: 48px 56px;
+  border-left: 4px solid var(--nos-primary);
+}
+
+.nosotros-content p {
+  font-size: 1.1rem;
+  color: var(--nos-gray);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.nosotros-content p + p {
+  margin-top: 24px;
+}
+
+.nosotros-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 56px;
+}
+
+.nosotros-card {
+  background-color: #ffffff;
+  padding: 28px 20px;
+  border-radius: 20px;
+  box-shadow: var(--nos-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.nosotros-card:hover {
+  transform: translateY(-8px);
+}
+
+.nosotros-card-icon {
+  width: 52px;
+  height: 52px;
+  background-color: var(--nos-pink);
+  color: var(--nos-primary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.nosotros-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--nos-dark);
+  margin-bottom: 10px;
+}
+
+.nosotros-card p {
+  color: var(--nos-gray);
+  line-height: 1.5;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .nosotros-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nosotros-container {
+    padding: 32px 20px 80px;
+  }
+
+  .nosotros-container h1 {
+    font-size: 2rem;
+  }
+
+  .nosotros-content {
+    padding: 32px 24px;
+  }
+
+  .nosotros-content p {
+    font-size: 1rem;
+  }
+
+  .nosotros-cards {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+    gap: 24px;
+  }
+}

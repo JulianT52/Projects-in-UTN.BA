@@ -1,0 +1,202 @@
+.dashboard-container {
+  padding: 40px 10%;
+  background-color: var(--light-bg);
+  min-height: calc(100vh - 160px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header h1 {
+  color: var(--dark-grey);
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.dashboard-header p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.dashboard-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* --- Módulo Buscador --- */
+.search-section {
+  flex: 2;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.search-section h2 {
+  color: var(--dark-grey);
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--dark-grey);
+  font-size: 0.95rem;
+}
+
+.form-group input, 
+.form-group select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-red);
+}
+
+.btn-search {
+  grid-column: span 2;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+/* --- Resultados de la búsqueda --- */
+.resultados-section {
+  margin-top: 30px;
+}
+
+.estado {
+  text-align: center;
+  padding: 1rem;
+  color: #555;
+}
+
+.estado.error {
+  color: var(--primary-red);
+  font-weight: 600;
+}
+
+.turnos-lista {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.turno-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  background: var(--white);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.turno-info h3 {
+  margin: 0 0 0.25rem;
+}
+
+.servicio {
+  color: var(--primary-red);
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.detalle {
+  margin: 0.15rem 0;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.turno-cobertura {
+  text-align: right;
+  min-width: 140px;
+}
+
+.cobertura-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cobertura-badge.TOTAL { background: #2e7d32; }
+.cobertura-badge.PARCIAL { background: #ed6c02; }
+.cobertura-badge.NO_CUBIERTA { background: #757575; }
+
+.monto {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.paginacion button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 900px) {
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-search {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 780px) {
+  .turno-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .turno-cobertura {
+    text-align: left;
+  }
+}
