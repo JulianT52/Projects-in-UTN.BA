@@ -1,0 +1,560 @@
+{
+  "info": {
+    "name": "MegaSuper - Producto CRUD",
+    "_postman_id": "4f7cab21-ec0b-4f28-bf5a-f1c9406ae2f7",
+    "description": "Coleccion para validar CRUD completo con un unico script de tests a nivel coleccion.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "productoId",
+      "value": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const requestName = pm.info.requestName;",
+          "let body = null;",
+          "",
+          "try {",
+          "  body = pm.response.json();",
+          "} catch (error) {",
+          "  body = null;",
+          "}",
+          "",
+          "const ensureStatus = (expectedStatus) => {",
+          "  pm.test(`Status ${expectedStatus}`, function () {",
+          "    pm.response.to.have.status(expectedStatus);",
+          "  });",
+          "};",
+          "",
+          "const ensureTimestamp = (target) => {",
+          "  pm.expect(target).to.have.property('timestamp');",
+          "  pm.expect(target.timestamp).to.be.a('string').and.not.empty;",
+          "};",
+          "",
+          "const ensureBodySuccess = () => {",
+          "  pm.test('Body success valido', function () {",
+          "    pm.expect(body).to.be.an('object');",
+          "    pm.expect(body.status).to.eql('success');",
+          "    pm.expect(body).to.have.property('data');",
+          "  });",
+          "};",
+          "",
+          "const ensureBodyFail = () => {",
+          "  pm.test('Body fail valido', function () {",
+          "    pm.expect(body).to.be.an('object');",
+          "    pm.expect(body.status).to.eql('fail');",
+          "    pm.expect(body.message).to.be.a('string').and.not.empty;",
+          "    ensureTimestamp(body);",
+          "  });",
+          "};",
+          "",
+          "const ensurePaginacion = (expectedPage, expectedLimit) => {",
+          "  pm.test('Paginacion valida', function () {",
+          "    pm.expect(body).to.have.property('paginacion');",
+          "    pm.expect(body.paginacion).to.be.an('object');",
+          "    pm.expect(body.paginacion.numeroPagina).to.eql(expectedPage);",
+          "    pm.expect(body.paginacion.limitePorPagina).to.eql(expectedLimit);",
+          "    pm.expect(body.paginacion.totalPaginas).to.be.a('number');",
+          "    pm.expect(body.paginacion.totalProductos).to.be.a('number');",
+          "    pm.expect(body.paginacion.totalPaginas).to.be.at.least(0);",
+          "    pm.expect(body.paginacion.totalProductos).to.be.at.least(0);",
+          "  });",
+          "};",
+          "",
+          "switch (requestName) {",
+          "  case 'GET /productos - listar':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('data es array', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    pm.test('consistencia totalProductos >= data.length', function () {",
+          "      pm.expect(body.paginacion.totalProductos).to.be.at.least(body.data.length);",
+          "    });",
+          "    console.info('OK listar productos -> cantidad:', body.data.length);",
+          "    break;",
+          "",
+          "  case 'POST /productos - crear':",
+          "    ensureStatus(201);",
+          "    ensureBodySuccess();",
+          "    pm.test('crea producto con id', function () {",
+          "      pm.expect(body.data).to.have.property('id');",
+          "    });",
+          "    pm.collectionVariables.set('productoId', body.data.id);",
+          "    pm.collectionVariables.set('productoNombre', body.data.nombre);",
+          "    console.info('OK crear producto -> id:', body.data.id);",
+          "    break;",
+          "",
+          "  case 'POST /productos - nombre duplicado':",
+          "    ensureStatus(409);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje de duplicado', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('existe');",
+          "    });",
+          "    console.info('OK validacion duplicado ->', body.message);",
+          "    break;",
+          "",
+          "  case 'GET /productos/:id - obtener por id':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('id coincide con variable de coleccion', function () {",
+          "      pm.expect(String(body.data.id)).to.eql(String(pm.collectionVariables.get('productoId')));",
+          "    });",
+          "    console.info('OK obtener por id ->', body.data);",
+          "    break;",
+          "",
+          "  case 'PUT /productos/:id - actualizar':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('actualiza nombre y precio', function () {",
+          "      pm.expect(body.data.nombre).to.eql('Yerba Tradicional Premium');",
+          "      pm.expect(body.data.precio).to.eql(4000);",
+          "    });",
+          "    console.info('OK actualizar producto');",
+          "    break;",
+          "",
+          "  case 'GET /productos/abc - id invalido':",
+          "    ensureStatus(400);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje menciona id', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('id');",
+          "    });",
+          "    console.info('OK validacion id invalido ->', body.message);",
+          "    break;",
+          "",
+          "  case 'GET /productos?page=1&limit=1 - paginado':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('data es array', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      pm.expect(body.data.length).to.be.at.most(1);",
+          "    });",
+          "    ensurePaginacion(1, 1);",
+          "    pm.test('si hay productos totalPaginas >= 1', function () {",
+          "      if (body.paginacion.totalProductos > 0) {",
+          "        pm.expect(body.paginacion.totalPaginas).to.be.at.least(1);",
+          "      } else {",
+          "        pm.expect(body.paginacion.totalPaginas).to.eql(0);",
+          "      }",
+          "    });",
+          "    console.info('OK paginado ->', body.paginacion);",
+          "    break;",
+          "",
+          "  case 'GET /productos?page=0&limit=1 - paginacion invalida':",
+          "    ensureStatus(400);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje menciona page', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('page');",
+          "    });",
+          "    console.info('OK validacion paginacion invalida ->', body.message);",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMin=3000 - filtrar precio mayor':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('todos los productos tienen precio >= precioMin', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      body.data.forEach(p => pm.expect(p.precio).to.be.at.least(3000));",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    console.info('OK filtrar por precioMin ->', body.data.length, 'productos');",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMax=5000 - filtrar precio menor':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('todos los productos tienen precio <= precioMax', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      body.data.forEach(p => pm.expect(p.precio).to.be.at.most(5000));",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    console.info('OK filtrar por precioMax ->', body.data.length, 'productos');",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMin=3000&precioMax=5000 - filtrar rango precio':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('todos los productos estan en el rango de precio', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      body.data.forEach(p => {",
+          "        pm.expect(p.precio).to.be.at.least(3000);",
+          "        pm.expect(p.precio).to.be.at.most(5000);",
+          "      });",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    console.info('OK filtrar por rango precio ->', body.data.length, 'productos');",
+          "    break;",
+          "",
+          "  case 'GET /productos?categoria=Alimentos - filtrar por categoria':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('todos los productos pertenecen a la categoria', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      body.data.forEach(p => pm.expect(p.categoria.toLowerCase()).to.eql('alimentos'));",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    console.info('OK filtrar por categoria ->', body.data.length, 'productos');",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMin=3000&precioMax=5000&categoria=Alimentos - filtrar combinado':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('productos cumplen todos los filtros', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      body.data.forEach(p => {",
+          "        pm.expect(p.precio).to.be.at.least(3000);",
+          "        pm.expect(p.precio).to.be.at.most(5000);",
+          "        pm.expect(p.categoria.toLowerCase()).to.eql('alimentos');",
+          "      });",
+          "    });",
+          "    ensurePaginacion(1, 10);",
+          "    console.info('OK filtrar combinado ->', body.data.length, 'productos');",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMin=abc - precioMin invalido':",
+          "    ensureStatus(400);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje menciona precioMin', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('preciomin');",
+          "    });",
+          "    console.info('OK precioMin invalido ->', body.message);",
+          "    break;",
+          "",
+          "  case 'GET /productos?precioMin=5000&precioMax=1000 - rango invalido':",
+          "    ensureStatus(400);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje menciona que precioMin no puede superar precioMax', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('preciomin');",
+          "    });",
+          "    console.info('OK rango invalido ->', body.message);",
+          "    break;",
+          "",
+          "  case 'DELETE /productos/:id - eliminar':",
+          "    ensureStatus(200);",
+          "    ensureBodySuccess();",
+          "    pm.test('marca eliminado en true para el mismo id creado', function () {",
+          "      pm.expect(String(body.data.id)).to.eql(String(pm.collectionVariables.get('productoId')));",
+          "      pm.expect(body.data.eliminado).to.eql(true);",
+          "    });",
+          "    console.info('OK eliminar logico producto ->', body.data);",
+          "    break;",
+          "",
+          "  case 'GET /productos/:id - no encontrado':",
+          "    ensureStatus(404);",
+          "    ensureBodyFail();",
+          "    pm.test('mensaje de no encontrado', function () {",
+          "      pm.expect(body.message.toLowerCase()).to.include('no encontrado');",
+          "    });",
+          "    console.info('OK no encontrado post delete ->', body.message);",
+          "    break;",
+          "",
+          "  case 'POST /productos/seed - inicializar lista':",
+          "    ensureStatus(201);",
+          "    ensureBodySuccess();",
+          "    pm.test('data es array con productos', function () {",
+          "      pm.expect(Array.isArray(body.data)).to.eql(true);",
+          "      pm.expect(body.data.length).to.be.at.least(1);",
+          "    });",
+          "    console.info('OK seed -> productos creados:', body.data.length);",
+          "    break;",
+          "",
+          "  default:",
+          "    pm.test('Request no contemplado por el script general', function () {",
+          "      pm.expect.fail(`No hay validaciones definidas para: ${requestName}`);",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /productos/seed - inicializar lista",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n  { \"nombre\": \"Coca-Cola 1.5L\", \"precio\": 2500, \"cantidad\": 50, \"categoria\": \"Bebidas\" },\n  { \"nombre\": \"Agua Mineral 500ml\", \"precio\": 800, \"cantidad\": 100, \"categoria\": \"Bebidas\" },\n  { \"nombre\": \"Cerveza Quilmes 1L\", \"precio\": 3500, \"cantidad\": 30, \"categoria\": \"Bebidas\" },\n  { \"nombre\": \"Leche Entera 1L\", \"precio\": 1500, \"cantidad\": 60, \"categoria\": \"Lacteos\" },\n  { \"nombre\": \"Harina 000 1kg\", \"precio\": 1200, \"cantidad\": 40, \"categoria\": \"Alimentos\" },\n  { \"nombre\": \"Aceite Girasol 1L\", \"precio\": 6000, \"cantidad\": 25, \"categoria\": \"Alimentos\" },\n  { \"nombre\": \"Fideos Largos 500g\", \"precio\": 1000, \"cantidad\": 45, \"categoria\": \"Alimentos\" },\n  { \"nombre\": \"Arroz 1kg\", \"precio\": 1800, \"cantidad\": 35, \"categoria\": \"Alimentos\" },\n  { \"nombre\": \"Azucar 1kg\", \"precio\": 2000, \"cantidad\": 30, \"categoria\": \"Alimentos\" },\n  { \"nombre\": \"Yerba Mate 500g\", \"precio\": 3200, \"cantidad\": 20, \"categoria\": \"Alimentos\" }\n]"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos/seed",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "seed"]
+        }
+      }
+    },
+    {
+      "name": "GET /productos - listar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"]
+        }
+      }
+    },
+    {
+      "name": "POST /productos - crear",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Yerba Tradicional\",\n  \"precio\": 3200,\n  \"cantidad\": 2,\n  \"categoria\": \"Alimentos\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"]
+        }
+      }
+    },
+    {
+      "name": "POST /productos - nombre duplicado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Yerba Tradicional\",\n  \"precio\": 3500,\n  \"cantidad\": 1,\n  \"categoria\": \"Alimentos\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"]
+        }
+      }
+    },
+    {
+      "name": "GET /productos/:id - obtener por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "{{productoId}}"]
+        }
+      }
+    },
+    {
+      "name": "PUT /productos/:id - actualizar",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Yerba Tradicional Premium\",\n  \"precio\": 4000,\n  \"cantidad\": 3,\n  \"categoria\": \"Alimentos\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "{{productoId}}"]
+        }
+      }
+    },
+    {
+      "name": "GET /productos/abc - id invalido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos/abc",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "abc"]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?page=1&limit=1 - paginado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?page=1&limit=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?page=0&limit=1 - paginacion invalida",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?page=0&limit=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [
+            { "key": "page", "value": "0" },
+            { "key": "limit", "value": "1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMin=3000 - filtrar precio mayor",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMin=3000",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [{ "key": "precioMin", "value": "3000" }]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMax=5000 - filtrar precio menor",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMax=5000",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [{ "key": "precioMax", "value": "5000" }]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMin=3000&precioMax=5000 - filtrar rango precio",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMin=3000&precioMax=5000",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [
+            { "key": "precioMin", "value": "3000" },
+            { "key": "precioMax", "value": "5000" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?categoria=Alimentos - filtrar por categoria",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?categoria=Alimentos",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [{ "key": "categoria", "value": "Alimentos" }]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMin=3000&precioMax=5000&categoria=Alimentos - filtrar combinado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMin=3000&precioMax=5000&categoria=Alimentos",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [
+            { "key": "precioMin", "value": "3000" },
+            { "key": "precioMax", "value": "5000" },
+            { "key": "categoria", "value": "Alimentos" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMin=abc - precioMin invalido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMin=abc",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [{ "key": "precioMin", "value": "abc" }]
+        }
+      }
+    },
+    {
+      "name": "GET /productos?precioMin=5000&precioMax=1000 - rango invalido",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos?precioMin=5000&precioMax=1000",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos"],
+          "query": [
+            { "key": "precioMin", "value": "5000" },
+            { "key": "precioMax", "value": "1000" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "DELETE /productos/:id - eliminar",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "{{productoId}}"]
+        }
+      }
+    },
+    {
+      "name": "GET /productos/:id - no encontrado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/productos/{{productoId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["productos", "{{productoId}}"]
+        }
+      }
+    }
+  ]
+}
